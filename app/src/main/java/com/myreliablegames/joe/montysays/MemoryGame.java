@@ -60,10 +60,11 @@ public class MemoryGame {
         } else if (moveHolder.roundOver()) {
             scoreManager.saveHighScore(moveHolder.getComputerMoves().size());
             scoreManager.updateHighScore();
+            scoreManager.setCurrentScore(moveHolder.getComputerMoves().size());
             isPlayerTurn = false;
             addComputerMove();
             indicateComputerMoves();
-            scoreManager.setCurrentScore(moveHolder.getComputerMoves().size());
+
             moveHolder.clearPlayerMoves();
         }
 
