@@ -4,60 +4,56 @@ import java.util.ArrayList;
 
 /**
  * Created by Joe on 1/9/2016.
+ *
+ * Holds moves played each round.
  */
 public class MoveHolder {
 
-    ArrayList playerMoves;
-    ArrayList computerMoves;
+    ArrayList<Integer> playerMoves;
+    ArrayList<Integer> computerMoves;
 
-    public MoveHolder(){
-        playerMoves = new ArrayList();
-        computerMoves = new ArrayList();
+    public MoveHolder() {
+        playerMoves = new ArrayList<>();
+        computerMoves = new ArrayList<>();
     }
 
-    public void addPlayerMove(int i){
+    public void addPlayerMove(int i) {
         playerMoves.add(i);
     }
 
-    public void addComputerMove(int i){
+    public void addComputerMove(int i) {
         computerMoves.add(i);
     }
 
-    public boolean checkMoves(){
+    public boolean checkMoves() {
 
-        for(int i = 0; i < playerMoves.size(); i++){
-            if(computerMoves.get(i) != playerMoves.get(i)){
+        for (int i = 0; i < playerMoves.size(); i++) {
+            if (computerMoves.get(i) != playerMoves.get(i)) {
                 return false;
             }
         }
         return true;
     }
 
-    public void clearMoves(){
+    public void clearMoves() {
         this.playerMoves.clear();
         this.computerMoves.clear();
     }
 
-    public void clearPlayerMoves(){
+    public void clearPlayerMoves() {
         this.playerMoves.clear();
     }
 
-    public ArrayList getComputerMoves(){
+    public int getLastCorrectMove() {
+        int playerLastMoveIndex = playerMoves.size() - 1;
+        return computerMoves.get(playerLastMoveIndex);
+    }
+
+    public ArrayList<Integer> getComputerMoves() {
         return computerMoves;
     }
 
-    public int getNumOfComputerMoves(){
-
-        if(!computerMoves.isEmpty()) {
-            return computerMoves.size();
-        }else return 0;
-    }
-
-    public ArrayList getPlayerMoves(){
-        return playerMoves;
-    }
-
-    public boolean roundOver(){
+    public boolean roundOver() {
         return playerMoves.size() == computerMoves.size();
     }
 }

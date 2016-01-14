@@ -25,7 +25,6 @@ public class NormalActivity extends Activity {
         ImageButton button4 = (ImageButton) findViewById(R.id.normalButton4);
 
 
-
         ArrayList<ImageButton> list = new ArrayList<>();
         list.add(button1);
         list.add(button2);
@@ -40,7 +39,6 @@ public class NormalActivity extends Activity {
         super.onBackPressed();
         memoryGame.onBackPressed();
     }
-
 
 
 }

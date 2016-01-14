@@ -2,31 +2,32 @@ package com.myreliablegames.joe.montysays;
 
 import android.app.Activity;
 import android.media.MediaPlayer;
-import android.util.Log;
 import android.widget.ImageButton;
 
 import java.util.List;
 
 /**
  * Created by Joe on 1/9/2016.
+ * <p/>
+ * The main game class.  Controls game workings.
  */
 public class MemoryGame {
 
     private ButtonController buttonController;
     private MoveHolder moveHolder;
-    private ScoreManager scoreManager;
+    private ScoreManager scoreDisplayManager;
     private Activity activity;
     private boolean isPlayerTurn;
     private int numButtons;
 
     public MemoryGame(List<ImageButton> buttons, Activity activity) {
+
         this.activity = activity;
         buttonController = new ButtonController(buttons, activity, this);
         moveHolder = new MoveHolder();
         isPlayerTurn = false;
         numButtons = buttons.size();
-        scoreManager = new ScoreManager(activity);
-
+        scoreDisplayManager = new ScoreManager(activity);
 
         newGame();
     }
@@ -53,18 +54,20 @@ public class MemoryGame {
 
     public void check() {
 
+        // player loses
         if (!moveHolder.checkMoves()) {
-            // player loses
             isPlayerTurn = false;
+            buttonController.lossIndicate(moveHolder.getLastCorrectMove());
             playLoseSoundAndStartNewGame();
+
+            // player is right
         } else if (moveHolder.roundOver()) {
-            scoreManager.saveHighScore(moveHolder.getComputerMoves().size());
-            scoreManager.updateHighScore();
-            scoreManager.setCurrentScore(moveHolder.getComputerMoves().size());
+            scoreDisplayManager.saveHighScore(moveHolder.getComputerMoves().size());
+            scoreDisplayManager.updateHighScore();
+            scoreDisplayManager.setCurrentScore(moveHolder.getComputerMoves().size());
             isPlayerTurn = false;
             addComputerMove();
             indicateComputerMoves();
-
             moveHolder.clearPlayerMoves();
         }
 
@@ -72,19 +75,12 @@ public class MemoryGame {
     }
 
     private void newGame() {
-
-
-        scoreManager.setCurrentScore(1);
-
-        Log.d("PlayerMoves", moveHolder.playerMoves.toString());
-        Log.d("ComputerMoves", moveHolder.computerMoves.toString());
-
+        // sets score to 1 to return to 1st round
+        scoreDisplayManager.setCurrentScore(1);
         isPlayerTurn = false;
         moveHolder.clearMoves();
         addComputerMove();
         indicateComputerMoves();
-
-
     }
 
     public void onBackPressed() {
@@ -92,8 +88,6 @@ public class MemoryGame {
     }
 
     private void playLoseSoundAndStartNewGame() {
-
-
 
         final MediaPlayer mediaPlayer = MediaPlayer.create(activity, R.raw.losesound);
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -104,5 +98,6 @@ public class MemoryGame {
             }
         });
         mediaPlayer.start();
+
     }
 }

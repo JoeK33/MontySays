@@ -25,7 +25,6 @@ public class HardActivity extends Activity {
         ImageButton button5 = (ImageButton) findViewById(R.id.hardButton5);
         ImageButton button6 = (ImageButton) findViewById(R.id.hardButton6);
 
-
         ArrayList<ImageButton> list = new ArrayList<>();
         list.add(button1);
         list.add(button2);
@@ -33,7 +32,6 @@ public class HardActivity extends Activity {
         list.add(button4);
         list.add(button5);
         list.add(button6);
-
 
         memoryGame = new MemoryGame(list, this);
 

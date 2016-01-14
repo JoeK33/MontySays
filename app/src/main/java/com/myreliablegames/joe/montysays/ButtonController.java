@@ -18,6 +18,8 @@ import java.util.List;
 
 /**
  * Created by Joe on 1/7/2016.
+ * <p/>
+ * Manages buttons.  Controls touch listeners, sounds, and indications.
  */
 public class ButtonController extends DebouncedOnClickListener {
 
@@ -30,7 +32,6 @@ public class ButtonController extends DebouncedOnClickListener {
 
     public ButtonController(List<ImageButton> buttons, Activity activity, MemoryGame game) {
         super(100);
-
         this.buttons = buttons;
         this.activity = activity;
         this.game = game;
@@ -63,11 +64,10 @@ public class ButtonController extends DebouncedOnClickListener {
         AudioAttributes attributes = new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_GAME)
                 .build();
-        SoundPool soundPool = new SoundPool.Builder()
+
+        return new SoundPool.Builder()
                 .setAudioAttributes(attributes)
                 .build();
-
-        return soundPool;
     }
 
     @SuppressWarnings("deprecation")
@@ -147,104 +147,94 @@ public class ButtonController extends DebouncedOnClickListener {
         mediaPlayer.start();
     }
 
-    private void changeButtonImage(ImageButton button, int pos) {
-
+    private void changeButtonImage(ImageButton button, int pos, int duration) {
 
         switch (pos) {
 
             case 1: {
-                imageFlip(button, R.drawable.button1, R.drawable.button1press);
+                imageFlip(button, R.drawable.button1, R.drawable.button1press, duration);
                 break;
             }
             case 2: {
-                imageFlip(button, R.drawable.button2, R.drawable.button2press);
+                imageFlip(button, R.drawable.button2, R.drawable.button2press, duration);
                 break;
             }
             case 3: {
-                imageFlip(button, R.drawable.button3, R.drawable.button3press);
+                imageFlip(button, R.drawable.button3, R.drawable.button3press, duration);
                 break;
             }
             case 4: {
-                imageFlip(button, R.drawable.button4, R.drawable.button4press);
+                imageFlip(button, R.drawable.button4, R.drawable.button4press, duration);
                 break;
             }
             case 5: {
-                imageFlip(button, R.drawable.button5, R.drawable.button5press);
+                imageFlip(button, R.drawable.button5, R.drawable.button5press, duration);
                 break;
             }
             case 6: {
-                imageFlip(button, R.drawable.button6, R.drawable.button6press);
+                imageFlip(button, R.drawable.button6, R.drawable.button6press, duration);
                 break;
             }
-
         }
-
-
     }
 
-
-
-    private void imageFlip(final ImageButton button, final int normalResource, int pressedResource) {
+    private void imageFlip(final ImageButton button, final int normalResource, int pressedResource, int duration) {
 
         button.setImageDrawable(ContextCompat.getDrawable(activity, pressedResource));
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 button.setImageDrawable(ContextCompat.getDrawable(activity, normalResource));
-
             }
-        }, 200);
+        }, duration);
 
     }
+
 
     private void addMoveAndIndicate(int buttonNumber) {
 
         game.addPlayerMove(buttonNumber);
         Log.d("Player Moves", Integer.toString(buttonNumber));
-        indicite(buttonNumber);
+        indicate(buttonNumber);
         game.check();
-
-
 
     }
 
-    public void indicite(int buttonNumber) {
+    public void indicate(int buttonNumber) {
 
         switch (buttonNumber) {
 
             case 1: {
                 playSound(R.raw.sound1);
-                changeButtonImage(buttons.get(0), 1);
+                changeButtonImage(buttons.get(0), 1, 200);
                 break;
             }
             case 2: {
                 playSound(R.raw.sound2);
-                changeButtonImage(buttons.get(1), 2);
+                changeButtonImage(buttons.get(1), 2, 200);
                 break;
             }
             case 3: {
                 playSound(R.raw.sound3);
-                changeButtonImage(buttons.get(2), 3);
+                changeButtonImage(buttons.get(2), 3, 200);
                 break;
             }
             case 4: {
                 playSound(R.raw.sound4);
-                changeButtonImage(buttons.get(3), 4);
+                changeButtonImage(buttons.get(3), 4, 200);
                 break;
             }
             case 5: {
                 playSound(R.raw.sound5);
-                changeButtonImage(buttons.get(4), 5);
+                changeButtonImage(buttons.get(4), 5, 200);
                 break;
             }
             case 6: {
                 playSound(R.raw.sound6);
-                changeButtonImage(buttons.get(5), 6);
+                changeButtonImage(buttons.get(5), 6, 200);
                 break;
             }
-
         }
-
     }
 
     public void indicateMoveList(final ArrayList l) {
@@ -253,10 +243,9 @@ public class ButtonController extends DebouncedOnClickListener {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    indicite((int) l.get(finalI));
+                    indicate((int) l.get(finalI));
                 }
             }, 1000 + (500 * i));
-
         }
 
         // start players turn after indications
@@ -266,14 +255,18 @@ public class ButtonController extends DebouncedOnClickListener {
                 game.startPlayerTurn();
             }
         }, 1000 + (500 * l.size()));
+    }
+
+    // indicate longer with no sound effect when player loses
+    public void lossIndicate(int buttonNumber) {
+
+        changeButtonImage(buttons.get(buttonNumber - 1), buttonNumber, 2000);
 
     }
 
-    public void onBackPressed(){
+    // stops handler from playing sounds if player goes back to previous activity
+    public void onBackPressed() {
         handler.removeCallbacksAndMessages(null);
     }
-
-
-
 
 }

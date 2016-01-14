@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 /**
  * Created by Joe on 1/9/2016.
+ * <p/>
+ * Keeps track of displaying and saving scores.
  */
 public class ScoreManager {
 
@@ -26,9 +28,10 @@ public class ScoreManager {
 
     }
 
+    // displays the saved high score.
     public void updateHighScore() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
 
         switch (difficulty) {
             case 0: {

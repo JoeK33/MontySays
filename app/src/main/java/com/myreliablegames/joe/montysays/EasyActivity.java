@@ -9,14 +9,12 @@ import java.util.ArrayList;
 
 public class EasyActivity extends Activity {
 
-    private MemoryGame memoryGame
-            ;
+    private MemoryGame memoryGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_easy);
-
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         ImageButton button1 = (ImageButton) findViewById(R.id.easyButton1);
