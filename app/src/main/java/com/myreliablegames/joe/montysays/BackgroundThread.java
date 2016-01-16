@@ -1,5 +1,6 @@
 package com.myreliablegames.joe.montysays;
 
+import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
@@ -23,6 +24,7 @@ public class BackgroundThread extends Thread {
     }
 
     @Override
+    @SuppressLint("WrongCall")
     public void run() {
         Canvas canvas;
         while (run) {
