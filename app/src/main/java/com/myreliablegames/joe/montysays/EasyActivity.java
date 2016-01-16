@@ -32,5 +32,4 @@ public class EasyActivity extends Activity {
         super.onBackPressed();
         memoryGame.onBackPressed();
     }
-
 }

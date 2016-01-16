@@ -15,7 +15,6 @@ public class HardActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hard);
-
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         ImageButton button1 = (ImageButton) findViewById(R.id.hardButton1);
@@ -34,7 +33,6 @@ public class HardActivity extends Activity {
         list.add(button6);
 
         memoryGame = new MemoryGame(list, this);
-
     }
 
     @Override
@@ -42,6 +40,4 @@ public class HardActivity extends Activity {
         super.onBackPressed();
         memoryGame.onBackPressed();
     }
-
-
 }

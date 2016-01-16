@@ -1,4 +1,14 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
 
+
+    <com.myreliablegames.joe.montysays.BackgroundView
+        android:id="@+id/background_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        custom:difficulty="easy"/>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +20,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/background"
     tools:context="com.myreliablegames.joe.montysays.EasyActivity">
 
 
@@ -22,40 +31,36 @@
 
 
         <TextView
-            style="@style/ScoreTheme"
             android:id="@+id/currentScoreTitle"
-            android:text="Current Round"
-            android:layout_weight="1"/>
+            style="@style/ScoreTheme"
+            android:layout_weight="1"
+            android:text="Current Round" />
 
         <TextView
-            style="@style/ScoreTheme"
             android:id="@+id/highScoreTitle"
-            android:text="High Score"
-            android:layout_weight="1"/>
+            style="@style/ScoreTheme"
+            android:layout_weight="1"
+            android:text="High Score" />
 
     </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".5"
-            android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".5"
+        android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/currentScore"
+            style="@style/ScoreTheme"
+            android:layout_weight="1"
+            android:text="" />
 
-
-
-            <TextView
-                style="@style/ScoreTheme"
-                android:id="@+id/currentScore"
-                android:text=""
-                android:layout_weight="1"/>
-
-            <TextView
-                style="@style/ScoreTheme"
-                android:id="@+id/highScore"
-                android:text=""
-                android:layout_weight="1"/>
-
+        <TextView
+            android:id="@+id/highScore"
+            style="@style/ScoreTheme"
+            android:layout_weight="1"
+            android:text="" />
 
     </LinearLayout>
 
@@ -97,4 +102,4 @@
 
 
 
-
+</RelativeLayout>

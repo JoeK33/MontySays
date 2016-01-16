@@ -32,6 +32,23 @@ public class MemoryGame {
         newGame();
     }
 
+    private void newGame() {
+        // sets score to 1 to return to 1st round
+        scoreDisplayManager.setCurrentScore(1);
+        isPlayerTurn = false;
+        moveHolder.clearMoves();
+        addComputerMove();
+        startRound();
+    }
+
+    private void addComputerMove() {
+        moveHolder.addComputerMove((int) (Math.random() * numButtons) + 1);
+    }
+
+    private void startRound() {
+        buttonController.indicateMoveListAndStartPlayerTurn(moveHolder.getComputerMoves());
+    }
+
     public boolean isPlayerTurn() {
         return isPlayerTurn;
     }
@@ -44,43 +61,34 @@ public class MemoryGame {
         moveHolder.addPlayerMove(move);
     }
 
-    private void addComputerMove() {
-        moveHolder.addComputerMove((int) (Math.random() * numButtons) + 1);
-    }
-
-    private void indicateComputerMoves() {
-        buttonController.indicateMoveList(moveHolder.getComputerMoves());
-    }
-
     public void check() {
-
         // player loses
         if (!moveHolder.checkMoves()) {
-            isPlayerTurn = false;
-            buttonController.lossIndicate(moveHolder.getLastCorrectMove());
-            playLoseSoundAndStartNewGame();
+            playerLoses();
 
-            // player is right
+            // player moves are all correct
         } else if (moveHolder.roundOver()) {
-            scoreDisplayManager.saveHighScore(moveHolder.getComputerMoves().size());
-            scoreDisplayManager.updateHighScore();
-            scoreDisplayManager.setCurrentScore(moveHolder.getComputerMoves().size());
-            isPlayerTurn = false;
-            addComputerMove();
-            indicateComputerMoves();
-            moveHolder.clearPlayerMoves();
+            nextRound();
         }
-
-
     }
 
-    private void newGame() {
-        // sets score to 1 to return to 1st round
-        scoreDisplayManager.setCurrentScore(1);
+
+    private void nextRound() {
+
+        moveHolder.clearPlayerMoves();
+        scoreDisplayManager.saveHighScore(moveHolder.getComputerMoves().size());
+        scoreDisplayManager.updateHighScore();
+        scoreDisplayManager.setCurrentScore(moveHolder.getComputerMoves().size());
         isPlayerTurn = false;
-        moveHolder.clearMoves();
         addComputerMove();
-        indicateComputerMoves();
+        startRound();
+    }
+
+    private void playerLoses() {
+
+        isPlayerTurn = false;
+        buttonController.lossIndicate(moveHolder.getLastCorrectMove());
+        playLoseSoundAndStartNewGame();
     }
 
     public void onBackPressed() {
@@ -98,6 +106,5 @@ public class MemoryGame {
             }
         });
         mediaPlayer.start();
-
     }
 }

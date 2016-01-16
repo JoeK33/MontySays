@@ -18,6 +18,7 @@ public class ScoreManager {
     private Activity activity;
 
     public ScoreManager(Activity activity) {
+
         this.activity = activity;
         scoreView = (TextView) activity.findViewById(R.id.currentScore);
         highScoreView = (TextView) activity.findViewById(R.id.highScore);
@@ -44,6 +45,10 @@ public class ScoreManager {
             }
             case 2: {
                 highScoreView.setText(Integer.toString(preferences.getInt("hardScore", 0)));
+                break;
+            }
+            default: {
+                // do nothing
                 break;
             }
         }
@@ -77,6 +82,10 @@ public class ScoreManager {
                 if (score > preferences.getInt("hardScore", 0)) {
                     editor.putInt("hardScore", score).apply();
                 }
+                break;
+            }
+            default: {
+                // do nothing
                 break;
             }
         }

@@ -1,3 +1,15 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+
+    <com.myreliablegames.joe.montysays.BackgroundView
+        android:id="@+id/background_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        custom:difficulty="normal"/>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +20,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/background"
     tools:context="com.myreliablegames.joe.montysays.NormalActivity">
 
 
@@ -116,3 +127,4 @@
 
 
 </LinearLayout>
+</RelativeLayout>

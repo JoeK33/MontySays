@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         easyButton.setOnClickListener(this);
         normalButton.setOnClickListener(this);
         hardButton.setOnClickListener(this);
-    }
 
+    }
 
     @Override
     public void onClick(View v) {
@@ -49,7 +49,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             }
-
+            default: {
+                // do nothing
+                break;
+            }
         }
     }
 }

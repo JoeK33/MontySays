@@ -9,7 +9,6 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -38,7 +37,6 @@ public class ButtonController extends DebouncedOnClickListener {
         soundPool = getSoundPool();
         setListeners(this.buttons);
         handler = new Handler();
-
     }
 
     private SoundPool getSoundPool() {
@@ -48,9 +46,7 @@ public class ButtonController extends DebouncedOnClickListener {
         } else {
             return getOldSoundPool();
         }
-
     }
-
 
     private void setListeners(List<ImageButton> list) {
 
@@ -83,57 +79,60 @@ public class ButtonController extends DebouncedOnClickListener {
             switch (v.getId()) {
 
                 case R.id.easyButton1: {
-                    addMoveAndIndicate(1);
+                    handlePlayerClick(1);
                     break;
                 }
                 case R.id.easyButton2: {
-                    addMoveAndIndicate(2);
+                    handlePlayerClick(2);
                     break;
                 }
                 case R.id.normalButton1: {
-                    addMoveAndIndicate(1);
+                    handlePlayerClick(1);
                     break;
                 }
                 case R.id.normalButton2: {
-                    addMoveAndIndicate(2);
+                    handlePlayerClick(2);
                     break;
                 }
                 case R.id.normalButton3: {
-                    addMoveAndIndicate(3);
+                    handlePlayerClick(3);
                     break;
                 }
                 case R.id.normalButton4: {
-                    addMoveAndIndicate(4);
+                    handlePlayerClick(4);
                     break;
                 }
                 case R.id.hardButton1: {
-                    addMoveAndIndicate(1);
+                    handlePlayerClick(1);
                     break;
                 }
                 case R.id.hardButton2: {
-                    addMoveAndIndicate(2);
+                    handlePlayerClick(2);
                     break;
                 }
                 case R.id.hardButton3: {
-                    addMoveAndIndicate(3);
+                    handlePlayerClick(3);
                     break;
                 }
                 case R.id.hardButton4: {
-                    addMoveAndIndicate(4);
+                    handlePlayerClick(4);
                     break;
                 }
                 case R.id.hardButton5: {
-                    addMoveAndIndicate(5);
+                    handlePlayerClick(5);
                     break;
                 }
                 case R.id.hardButton6: {
-                    addMoveAndIndicate(6);
+                    handlePlayerClick(6);
+                    break;
+                }
+                default: {
+                    // do nothing
                     break;
                 }
             }
         }
     }
-
 
     private void playSound(int sound) {
 
@@ -175,6 +174,10 @@ public class ButtonController extends DebouncedOnClickListener {
                 imageFlip(button, R.drawable.button6, R.drawable.button6press, duration);
                 break;
             }
+            default: {
+                // do nothing
+                break;
+            }
         }
     }
 
@@ -190,14 +193,10 @@ public class ButtonController extends DebouncedOnClickListener {
 
     }
 
-
-    private void addMoveAndIndicate(int buttonNumber) {
-
+    private void handlePlayerClick(int buttonNumber) {
         game.addPlayerMove(buttonNumber);
-        Log.d("Player Moves", Integer.toString(buttonNumber));
         indicate(buttonNumber);
         game.check();
-
     }
 
     public void indicate(int buttonNumber) {
@@ -234,10 +233,14 @@ public class ButtonController extends DebouncedOnClickListener {
                 changeButtonImage(buttons.get(5), 6, 200);
                 break;
             }
+            default: {
+                // do nothing
+                break;
+            }
         }
     }
 
-    public void indicateMoveList(final ArrayList l) {
+    public void indicateMoveListAndStartPlayerTurn(final ArrayList l) {
         for (int i = 0; i < l.size(); i++) {
             final int finalI = i;
             handler.postDelayed(new Runnable() {
@@ -259,14 +262,11 @@ public class ButtonController extends DebouncedOnClickListener {
 
     // indicate longer with no sound effect when player loses
     public void lossIndicate(int buttonNumber) {
-
         changeButtonImage(buttons.get(buttonNumber - 1), buttonNumber, 2000);
-
     }
 
     // stops handler from playing sounds if player goes back to previous activity
     public void onBackPressed() {
         handler.removeCallbacksAndMessages(null);
     }
-
 }
